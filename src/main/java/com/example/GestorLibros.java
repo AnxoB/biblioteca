@@ -1,15 +1,77 @@
 package com.example;
 
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
+import java.sql.Statement;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 public class GestorLibros {
     String nombreBD;
+    private final String URL;
+    private final String USER = "root";
+    private final String PASSWORD = "root";
     GestorLibros(String nombre){
-        nombreBD=nombre;
+        this.nombreBD=nombre;
+        this.URL = "jdbc:mysql://localhost:3306/" + nombreBD;
     }
-    String url = "jdbc:mysql://localhost:3306/" + nombreBD;
-    String user = "root";
-    String password = "root";
+    
+
+    public void crearTabla(){
+        String tabla = """
+                CREATE TABLE IF NOT EXISTS Libro (
+                    ISBN varchar(20) primary key,
+                    titulo varchar(50),
+                    autor varchar(50),
+                    anho_publicacion int
+                )
+                """;
+        try {
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            Statement statement = conn.createStatement();
+            statement.execute(tabla);
+            System.out.println("Tabla libro creada");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void añadirLibro(String tabla, String ISBN, String titulo, String autor, String anho){
+        String consulta = """
+                INSERT INTO %s VALUES("%s", "%s", "%s", "%s");
+                """.formatted(tabla, ISBN, titulo, autor, anho);
+        try {
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(consulta);
+            System.out.println("Libro añadido");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void consulta(){
+        String consulta = "SELECT * FROM Libro";
+        try {
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(consulta);
+            while (rs.next()) {
+                System.out.println(rs.getString(1) + " " + rs.getString(2));
+                System.out.println(rs.getString(2));
+                System.out.println(rs.getString(3));
+                System.out.println(rs.getString(4));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+    }
+
+
 
     
 
