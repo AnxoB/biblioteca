@@ -53,23 +53,50 @@ public class GestorLibros {
         }
     }
 
-    public void consulta(){
+    public void listarLibros(){
         String consulta = "SELECT * FROM Libro";
         try {
             Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(consulta);
             while (rs.next()) {
-                System.out.println(rs.getString(1) + " " + rs.getString(2));
-                System.out.println(rs.getString(2));
-                System.out.println(rs.getString(3));
-                System.out.println(rs.getString(4));
+                System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     
     }
+    public void listarLibrosAutor(String autor){
+        String consulta = "SELECT * FROM Libro WHERE autor='" + autor + "'";
+        try {
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(consulta);
+            while (rs.next()) {
+                System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+    }
+    public void listarLibrosAño(int año){
+        String consulta = "SELECT * FROM Libro WHERE anho_publicacion>'" + año + "'";
+        try {
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(consulta);
+            while (rs.next()) {
+                System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+    }
+
+
 
 
 
