@@ -132,19 +132,43 @@ public class GestorLibros {
         }
     }
 
-    public void eliminarLibro(int año, String ISBN){
-        String consulta = "UPDATE Libro SET anho_publicacion='" + año + "' WHERE ISBN='" + ISBN + "'";
+    public void eliminarLibro(String ISBN){
+        String consulta = "DELETE FROM Libro WHERE ISBN='" + ISBN + "'";
         try {
             Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
             Statement statement = conn.createStatement();
             int count = statement.executeUpdate(consulta);
-            System.out.println("Dato actualizado: " + count);
+            System.out.println("Dato borrado: " + count);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    
+    public void eliminarLibroAño(int año){
+        String consulta = "DELETE FROM Libro WHERE ISBN<'" + año + "'";
+        try {
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            Statement statement = conn.createStatement();
+            int count = statement.executeUpdate(consulta);
+            System.out.println("Dato borrado: " + count);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cleanLibros(){
+        String consulta = "DELETE FROM Libro";
+        try {
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            Statement statement = conn.createStatement();
+            int count = statement.executeUpdate(consulta);
+            System.out.println("Dato borrados: " + count);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 
