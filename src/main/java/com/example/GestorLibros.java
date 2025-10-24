@@ -96,6 +96,58 @@ public class GestorLibros {
     
     }
 
+    public void modificarTitulo(String titulo, String ISBN){
+        String consulta = "UPDATE Libro SET titulo='" + titulo + "' WHERE ISBN='" + ISBN + "'";
+        try {
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            Statement statement = conn.createStatement();
+            int count = statement.executeUpdate(consulta);
+            System.out.println("Dato actualizado: " + count);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void modificarAutor(String autor, String ISBN){
+        String consulta = "UPDATE Libro SET autor='" + autor + "' WHERE ISBN='" + ISBN + "'";
+        try {
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            Statement statement = conn.createStatement();
+            int count = statement.executeUpdate(consulta);
+            System.out.println("Dato actualizado: " + count);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void modificarAño(int año, String ISBN){
+        String consulta = "UPDATE Libro SET anho_publicacion='" + año + "' WHERE ISBN='" + ISBN + "'";
+        try {
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            Statement statement = conn.createStatement();
+            int count = statement.executeUpdate(consulta);
+            System.out.println("Dato actualizado: " + count);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void eliminarLibro(int año, String ISBN){
+        String consulta = "UPDATE Libro SET anho_publicacion='" + año + "' WHERE ISBN='" + ISBN + "'";
+        try {
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            Statement statement = conn.createStatement();
+            int count = statement.executeUpdate(consulta);
+            System.out.println("Dato actualizado: " + count);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    
+
+
+
 
 
 

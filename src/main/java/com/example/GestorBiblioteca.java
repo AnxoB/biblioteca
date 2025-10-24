@@ -17,14 +17,10 @@ public class GestorBiblioteca {
     public void crearBaseDatos(String nombre, boolean borrar){
         try (Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
             Statement statement = conexion.createStatement()) {
-            if (borrar=true) {
+            if (borrar==true) {
                 statement.executeUpdate("DROP DATABASE IF EXISTS " + nombre);
             }
-            String sql = """
-                CREATE DATABASE IF NOT EXISTS %s
-                CHARACTER SET utf8mb4
-                COLLATE utf8mb4_general_ci;
-                """.formatted(nombre);
+            String sql = "CREATE DATABASE IF NOT EXISTS " + nombre;
 
             statement.executeUpdate(sql);
             System.out.println("Base da datos creada");
